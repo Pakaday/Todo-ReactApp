@@ -345,7 +345,6 @@ C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets\m
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TodoApi.props
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TodoApi.props
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.csproj.Up2Date
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\refint\TodoApi.dll
