@@ -8,7 +8,8 @@ function App() {
     ]);
 
     useEffect(() => {
-        fetch('http://localhost:5209/api/TodoItems')
+        //fetch('http://localhost:5209/api/TodoItems')
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -41,7 +42,9 @@ function App() {
             dueDate
         };
 
-        fetch('http://localhost:5209/api/TodoItems', {
+        //fetch('http://localhost:5209/api/TodoItems', {
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
+
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -65,7 +68,9 @@ function App() {
     };
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5209/api/TodoItems/${id}`, {
+        //fetch(`http://localhost:5209/api/TodoItems/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
+
             method: 'DELETE'
         })
             .then(response => {
