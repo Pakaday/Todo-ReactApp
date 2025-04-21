@@ -13,13 +13,16 @@ builder.Services.AddSwaggerGen();
 // Register DBContext
 builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add CORS with default policy
+// Add CORS
 builder.Services.AddCors(options =>
 {
-	options.AddDefaultPolicy(
+	options.AddPolicy("AllowSpecificOrigin",
 		policy =>
 		{
-			policy.WithOrigins("http://localhost:3000", "https://todo-react-33gmqze2w-frederick-neimeisters-projects.vercel.app");
+			policy.WithOrigins(
+				"http://localhost:3000",
+				"https://todo-react-33gmqze2w-frederick-neimeisters-projects.vercel.app"
+				);
 			policy.AllowAnyHeader();
 			policy.AllowAnyMethod();
 		});
@@ -36,7 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
