@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 	options.AddDefaultPolicy(
 		policy =>
 		{
-			policy.WithOrigins("http://localhost:3000", "https://todo-react-app-two-beta.vercel.app/");
+			policy.WithOrigins("http://localhost:3000", "https://todo-react-33gmqze2w-frederick-neimeisters-projects.vercel.app");
 			policy.AllowAnyHeader();
 			policy.AllowAnyMethod();
 		});
