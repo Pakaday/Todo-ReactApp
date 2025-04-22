@@ -65,7 +65,7 @@ function App() {
                 // Clear input field
                 setUserInput('');
                 setDescription('');
-                setIsCompleted('');
+                setIsCompleted(false);
                 setDueDate('');
             })
             .catch(error => {
@@ -75,7 +75,7 @@ function App() {
 
     const handleDelete = (id) => {
         //fetch(`http://localhost:5209/api/TodoItems/${id}`, {
-        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems${id}`, {
 
             method: 'DELETE'
         })
