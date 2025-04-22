@@ -351,3 +351,6 @@ C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\refint\TodoApi.dl
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.pdb
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.genruntimeconfig.cache
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\ref\TodoApi.dll
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\asset-manifest.json
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\manifest.json
+C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
