@@ -35,6 +35,12 @@ function App() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Validation for input
+        if (!userInput || !dueDate) {
+            console.error('Task title and due date are required.');
+            return;
+        }
+
         const newTodo = {
             title: userInput,
             description,
