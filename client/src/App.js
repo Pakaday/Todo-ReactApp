@@ -76,7 +76,7 @@ function App() {
     const handleDelete = (id) => {
         console.log('Deleting ID:', id);
         //fetch(`http://localhost:5209/api/TodoItems/${id}`, {
-        fetch(`${process.env.REACT_APP_API_URL}/TodoItems${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
 
             method: 'DELETE'
         })
