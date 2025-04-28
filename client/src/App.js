@@ -21,6 +21,8 @@ function App() {
     const [description, setDescription] = useState('');
     const [isCompleted, setIsCompleted] = useState(false);
     const [dueDate, setDueDate] = useState('');
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
 
 
     // Validate input in the console
@@ -36,6 +38,8 @@ function App() {
             console.error('Task title and due date are required.');
             return;
         }
+
+        setIsSubmit(true);
 
         const newTodo = {
             title: userInput,
@@ -65,11 +69,16 @@ function App() {
             })
             .catch(error => {
                 console.error('Error adding item:', error);
+            })
+            .finally(() => {
+                setIsSubmit(false);
             });
     };
 
     const handleDelete = (id) => {
         console.log('Deleting ID:', id);
+        setDeletingId(id);
+
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
 
             method: 'DELETE'
@@ -81,7 +90,10 @@ function App() {
                     console.error('Failed to delete task');
                 }
             })
-            .catch(error => console.error('Error deleting task:', error));
+            .catch(error => console.error('Error deleting task:', error))
+            .finally(() => {
+                setDeletingId(null);
+            })
     };
 
     return (
@@ -123,13 +135,17 @@ function App() {
                     />
                 </label>
                 <br />
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={isSubmit}>
+                    {isSubmit ? 'Submitting...' : 'Submit'}
+                </button>
             </form>
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
                         {todo.title} - {todo.description} - {todo.isCompleted ? 'Completed' : 'Pending'} - {new Date(todo.dueDate).toLocaleDateString()}
-                        <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                        <button onClick={() => handleDelete(todo.id)} disabled={deletingId === todo.id}>
+                            {deletingId === todo.id ? 'Deleting...' : 'Delete'}
+                        </button>
                     </li>
                 ))}
             </ul>
