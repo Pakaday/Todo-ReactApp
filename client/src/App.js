@@ -128,7 +128,7 @@ function App() {
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
-                        {todo.title} - {todo.description} - {todo.isCompleted ? 'Completed' : 'Pending'} - {todo.dueDate}
+                        {todo.title} - {todo.description} - {todo.isCompleted ? 'Completed' : 'Pending'} - {new Date(todo.dueDate).toLocaleDateString()}
                         <button onClick={() => handleDelete(todo.id)}>Delete</button>
                     </li>
                 ))}
