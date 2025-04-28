@@ -2,13 +2,9 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-    const [todos, setTodos] = useState([
-        //{ id: 1, name: 'Sample Task' },
-        //{ id: 2, name: 'Another one' }
-    ]);
+    const [todos, setTodos] = useState([]);
 
     useEffect(() => {
-        //fetch('http://localhost:5209/api/TodoItems')
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems`)
             .then(response => response.json())
             .then(data => {
@@ -48,7 +44,6 @@ function App() {
             dueDate
         };
 
-        //fetch('http://localhost:5209/api/TodoItems', {
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
 
             method: 'POST',
@@ -75,7 +70,6 @@ function App() {
 
     const handleDelete = (id) => {
         console.log('Deleting ID:', id);
-        //fetch(`http://localhost:5209/api/TodoItems/${id}`, {
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
 
             method: 'DELETE'
