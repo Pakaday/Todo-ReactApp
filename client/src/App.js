@@ -12,9 +12,10 @@ function App() {
                 setTodos(data);
             })
             .catch(error => {
-                console.error('Error fetching todos:', error);
+                console.error('Error fetching from database:', error); // REMOVE
+                alert('Error fetching from database:', error);
             });
-        console.log('Component loaded');
+        console.error('Component loaded'); // REMOVE
     }, []);
 
     const [userInput, setUserInput] = useState('');
@@ -27,7 +28,7 @@ function App() {
 
     // Validate input in the console
     useEffect(() => {
-        console.log('User input changed:', userInput);
+        console.log('User input changed:', userInput); // REMOVE 
     }, [userInput]);
 
     const handleSubmit = (e) => {
@@ -35,7 +36,7 @@ function App() {
 
         // Validation for input
         if (!userInput || !dueDate) {
-            console.error('Task title and due date are required.');
+            alert('Task and due date are required.');
             return;
         }
 
@@ -68,7 +69,8 @@ function App() {
                 setDueDate('');
             })
             .catch(error => {
-                console.error('Error adding item:', error);
+                console.error('Error adding item:', error); // REMOVE??
+                alert('Error adding item:', error);
             })
             .finally(() => {
                 setIsSubmit(false);
@@ -76,7 +78,7 @@ function App() {
     };
 
     const handleDelete = (id) => {
-        console.log('Deleting ID:', id);
+        console.log('Deleting ID:', id); // REMOVE
         setDeletingId(id);
 
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
@@ -87,10 +89,11 @@ function App() {
                 if (response.ok) {
                     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
                 } else {
-                    console.error('Failed to delete task');
+                    console.error('Failed to delete task'); // REMOVE
+                    alert('Failed to delete task');
                 }
             })
-            .catch(error => console.error('Error deleting task:', error))
+            .catch(error => alert('Error deleting task:', error))
             .finally(() => {
                 setDeletingId(null);
             })
