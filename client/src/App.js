@@ -4,6 +4,7 @@ import './App.css';
 function App() {
     const [todos, setTodos] = useState([]);
 
+    // Fetch todo list when page loads
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems`)
             .then(response => response.json())
@@ -18,6 +19,7 @@ function App() {
         console.error('Component loaded'); // REMOVE
     }, []);
 
+    // Form input
     const [userInput, setUserInput] = useState('');
     const [description, setDescription] = useState('');
     const [isCompleted, setIsCompleted] = useState(false);
@@ -31,6 +33,7 @@ function App() {
         console.log('User input changed:', userInput); // REMOVE 
     }, [userInput]);
 
+    // Form submission 
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -40,6 +43,7 @@ function App() {
             return;
         }
 
+        // Disable Submit button
         setIsSubmit(true);
 
         const newTodo = {
@@ -61,6 +65,7 @@ function App() {
                 return response.json();
             })
             .then(data => {
+                // Add new task to list
                 setTodos([...todos, data]);
                 // Clear input field
                 setUserInput('');
@@ -77,6 +82,7 @@ function App() {
             });
     };
 
+    // Delete handler
     const handleDelete = (id) => {
         console.log('Deleting ID:', id); // REMOVE
         setDeletingId(id);

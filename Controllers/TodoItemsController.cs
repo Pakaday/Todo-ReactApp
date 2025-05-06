@@ -10,7 +10,7 @@ namespace TodoApi.Controllers;
 [Route("api/[controller]")]
 public class TodoItemsController : ControllerBase
 {
-	// Controller methods
+	// Inject TodoDbContext into controller
 	private readonly TodoDbContext _context;
 
 	public TodoItemsController(TodoDbContext context)
@@ -18,12 +18,14 @@ public class TodoItemsController : ControllerBase
 		_context = context;
 	}
 
+	// Get Todo items
 	[HttpGet]
 	public IEnumerable<TodoItem> Get()
 	{
 		return _context.TodoItems;
 	}
 
+	// Get Todo items by ID
 	[HttpGet("{id}")]
 	public ActionResult<TodoItem> Get(long id)
 	{
@@ -37,6 +39,7 @@ public class TodoItemsController : ControllerBase
 		return todoItem;
 	}
 
+	// Post new Todo item
 	[HttpPost]
 	public async Task<IActionResult> PostTodoItem(TodoItem todoItem)
 	{
@@ -46,6 +49,7 @@ public class TodoItemsController : ControllerBase
 		return CreatedAtAction(nameof(Get), new { id = todoItem.Id }, todoItem);
 	}
 
+	// Update an existing Todo item
 	[HttpPut("{id}")]
 	public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
 	{
@@ -53,11 +57,10 @@ public class TodoItemsController : ControllerBase
 
 		// Save changes to database
 		await _context.SaveChangesAsync();
-
-		// Return 204 No Content if successful
 		return NoContent();
 	}
 
+	// Delete a Todo item
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> DeleteTodoItem(long id)
 	{
