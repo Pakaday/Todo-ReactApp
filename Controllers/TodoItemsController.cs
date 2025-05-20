@@ -53,11 +53,16 @@ public class TodoItemsController : ControllerBase
 	[HttpPut("{id}")]
 	public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
 	{
+		if (id != todoItem.Id)
+		{
+			return BadRequest();
+		}
+
 		_context.Entry(todoItem).State = EntityState.Modified;
 
 		// Save changes to database
 		await _context.SaveChangesAsync();
-		return NoContent();
+		return Ok(todoItem);
 	}
 
 	// Delete a Todo item
