@@ -235,6 +235,8 @@ function App() {
                                     setDueDate(todo.dueDate.split('T')[0]);
                                     setIsEditing(true);
                                     setId(todo.id);
+                                    setTitleError('');
+                                    setDueDateError('');
                                 }}>
                                     Edit
                                 </button>
