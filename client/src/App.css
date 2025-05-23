@@ -1,6 +1,6 @@
-.App {
+/*.App {*/
 /*  text-align: center;*/
-  display: grid;
+  /*display: grid;
   place-items: center;
 }
 
@@ -37,4 +37,94 @@
   to {
     transform: rotate(360deg);
   }
+}*/
+
+.App {
+    font-family: 'Segoe UI', Tahoma, Verdana, Geneva, sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #444;
+}
+
+input[type='text'],
+input[type='date'],
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+}
+
+input.error,
+textarea.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #0077cc;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005fa3;
+}
+
+.task-list {
+    margin-top: 2rem;
+}
+
+.task-card {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card p {
+    margin: 0;
 }

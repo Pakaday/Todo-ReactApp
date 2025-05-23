@@ -175,12 +175,9 @@ function App() {
                             type="text"
                             value={title}
                             onChange={handleTitleChange}
-                            style={{
-                                borderColor: titleError ? 'red' : '#ccc',
-                                outline: titleError ? '1px solid red' : 'none'
-                            } }
+                            className={titleError ? 'error' : '' }
                         />
-                        {titleError && <p style={{ color: 'red' }}>{titleError}</p>}
+                        {titleError && <p className="error-message">{titleError}</p>}
                     </label>
                     <br />
                     <label>
@@ -208,40 +205,43 @@ function App() {
                             type="date"
                             value={dueDate}
                             onChange={handleDateChange}
-                            style={{
-                                borderColor: dueDateError ? 'red' : '#ccc',
-                                outline: dueDateError ? '1px solid red' : 'none'
-                            } }
+                            className={dueDateError ? 'error' : ''}
                         />
-                        {dueDateError && <p style={{ color: 'red' }}>{dueDateError}</p>}
+                        {dueDateError && <p className="error-message">{dueDateError}</p>}
                     </label>
                     <br />
                     <button type="submit" disabled={isSubmit}>
                         {isSubmit ? 'Submitting...' : 'Submit'}
                     </button>
                 </form>
-                <ul>
+                <div className="task-list">
                     {todos.map(todo => (
-                        <li key={todo.id}>
-                            {todo.title} - {todo.description} - {todo.isCompleted ? 'Completed' : 'Pending'} - {new Date(todo.dueDate).toLocaleDateString()}
-                            <button onClick={() =>
-                                handleDelete(todo.id)}
-                                disabled={deletingId === todo.id}>
-                                {deletingId === todo.id ? 'Deleting...' : 'Delete'}
-                            </button>
-                            <button onClick={() => {
-                                setTitle(todo.title);
-                                setDescription(todo.description);
-                                setIsCompleted(todo.isCompleted);
-                                setDueDate(todo.dueDate.split('T')[0]);
-                                setIsEditing(true);
-                                setId(todo.id);
-                            }}>
-                                Edit
-                            </button>
-                        </li>
+                        <div className="task-card" key={todo.id}>
+                            <div>
+                                <strong>{todo.title}</strong>
+                                {todo.description && <p>{todo.description}</p>}
+                                <p>{todo.isCompleted ? 'Completed' : 'Pending'} - {new Date(todo.dueDate).toLocaleDateString()}</p>
+                            </div>
+                            <div className="task-actions">
+                                <button onClick={() =>
+                                    handleDelete(todo.id)}
+                                    disabled={deletingId === todo.id}>
+                                    {deletingId === todo.id ? 'Deleting...' : 'Delete'}
+                                </button>
+                                <button onClick={() => {
+                                    setTitle(todo.title);
+                                    setDescription(todo.description);
+                                    setIsCompleted(todo.isCompleted);
+                                    setDueDate(todo.dueDate.split('T')[0]);
+                                    setIsEditing(true);
+                                    setId(todo.id);
+                                }}>
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         );
     }
