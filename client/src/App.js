@@ -27,6 +27,10 @@ function App() {
     const [deletingId, setDeletingId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
+    // Real-time validation NEW
+    const [titleError, setTitleError] = useState('Task name required');
+    const [dueDateError, setDueDateError] = useState('Due date required');
+
     const resetForm = () => {
         setId(null);
         setTitle('');
@@ -35,6 +39,7 @@ function App() {
         setDueDate('');
         setIsSubmit(false);
         setIsEditing(false);
+        setDueDateError('Due date required') // Makes submitting due date show validation on reset NEW
     };
 
     // Form submission 
@@ -43,7 +48,7 @@ function App() {
 
         // Validation for input
         if (!title || !dueDate) {
-            alert('Task and due date are required.');
+            alert('Task and due date are required.'); // REMOVE
             return;
         }
 
@@ -65,7 +70,7 @@ function App() {
             dueDate
 
         }
-
+        // Update method for PUT/POST 
         if (isEditing) {
             fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
                 method: 'PUT',
@@ -81,7 +86,6 @@ function App() {
                 })
                 .catch(error => {
                     alert('Error updating items:', error);
-                    console.error(error);
                 })
                 .finally(() => {
                     setIsSubmit(false);
@@ -137,21 +141,51 @@ function App() {
                 })
         };
 
+    // Task title valdiation
+    const handleTitleChange = (e) => {
+        const value = e.target.value;
+        setTitle(value);
+
+        if (!value.trim()) {
+            setTitleError('Task name required');
+        } else {
+            setTitleError('');
+        }
+    }
+    // Due date validation
+    const handleDateChange = (e) => {
+        const value = e.target.value;
+        setDueDate(value);
+
+        if (!value) {
+            setDueDateError('Due date required');
+        } else {
+            setDueDateError('');
+        }
+    }
+
         return (
             <div className="App">
                 <h1>Todo List</h1>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Enter a task
+                        <br />
                         <input
                             type="text"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={handleTitleChange}
+                            style={{
+                                borderColor: titleError ? 'red' : '#ccc',
+                                outline: titleError ? '1px solid red' : 'none'
+                            } }
                         />
+                        {titleError && <p style={{ color: 'red' }}>{titleError}</p>}
                     </label>
                     <br />
                     <label>
-                        Description:
+                        Description
+                        <br />
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -168,12 +202,18 @@ function App() {
                     </label>
                     <br />
                     <label>
-                        Due Date:
+                        Due Date
+                        <br />
                         <input
                             type="date"
                             value={dueDate}
-                            onChange={(e) => setDueDate(e.target.value)}
+                            onChange={handleDateChange}
+                            style={{
+                                borderColor: dueDateError ? 'red' : '#ccc',
+                                outline: dueDateError ? '1px solid red' : 'none'
+                            } }
                         />
+                        {dueDateError && <p style={{ color: 'red' }}>{dueDateError}</p>}
                     </label>
                     <br />
                     <button type="submit" disabled={isSubmit}>
