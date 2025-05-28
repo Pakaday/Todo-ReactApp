@@ -39,18 +39,34 @@ function App() {
         setDueDate('');
         setIsSubmit(false);
         setIsEditing(false);
-        setDueDateError('Due date required') // Makes submitting due date show validation on reset NEW
+
+        // Reset validation 
+        setTitleError('Task name required')
+        setDueDateError('Due date required') 
     };
 
     // Form submission 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let hasError = false;
+
         // Validation for input
-        if (!title || !dueDate) {
-            alert('Task and due date are required.'); // REMOVE
-            return;
+        if (!title) {
+            setTitleError('Task name required');
+            hasError = true;
+        } else {
+            setTitleError('');
         }
+
+        if (!dueDate) {
+            setDueDateError('Due date required');
+            hasError = true;
+        } else {
+            setDueDateError('');
+        }
+
+        if (hasError) return;
 
         // Disable Submit button
         setIsSubmit(true);
