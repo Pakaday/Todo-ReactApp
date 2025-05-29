@@ -31,6 +31,12 @@ function App() {
     const [titleError, setTitleError] = useState('Task name required');
     const [dueDateError, setDueDateError] = useState('Due date required');
 
+    // Search bar
+    const [query, setQuery] = useState('');
+    const filteredData = todos.filter((todo) =>
+        todo.title.toLowerCase().includes(query.toLowerCase())
+    );
+
     const resetForm = () => {
         setId(null);
         setTitle('');
@@ -183,6 +189,17 @@ function App() {
         return (
             <div className="App">
                 <h1>Todo List</h1>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+                <ul>
+                    {filteredData.map((todo) => (
+                        <li key={todo.id}>{todo.title}</li>
+                    ))}
+                </ul>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Enter a task
