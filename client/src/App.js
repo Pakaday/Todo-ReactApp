@@ -33,9 +33,13 @@ function App() {
 
     // Search bar
     const [query, setQuery] = useState('');
-    const filteredData = todos.filter((todo) =>
-        todo.title.toLowerCase().includes(query.toLowerCase())
-    );
+    //const filteredData = todos.filter((todo) =>
+    //    todo.title.toLowerCase().includes(query.toLowerCase())
+    //);
+    const listToShow = query
+        ? todos.filter(t => t.title.toLowerCase().includes(query.toLowerCase()) ||
+            t.description.toLowerCase().includes(query.toLowerCase()))
+        : todos;
 
     const resetForm = () => {
         setId(null);
@@ -195,11 +199,11 @@ function App() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <ul>
-                    {filteredData.map((todo) => (
-                        <li key={todo.id}>{todo.title}</li>
-                    ))}
-                </ul>
+                {/*<ul>*/}
+                {/*    {filteredData.map((todo) => (*/}
+                {/*        <li key={todo.id}>{todo.title}</li>*/}
+                {/*    ))}*/}
+                {/*</ul>*/}
                 <form onSubmit={handleSubmit}>
                     <label>
                         Enter a task
@@ -248,7 +252,7 @@ function App() {
                     </button>
                 </form>
                 <div className="task-list">
-                    {todos.map(todo => (
+                    {listToShow.map(todo => (
                         <div className="task-card" key={todo.id}>
                             <div>
                                 <strong>{todo.title}</strong>
