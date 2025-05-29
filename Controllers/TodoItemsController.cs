@@ -20,9 +20,16 @@ public class TodoItemsController : ControllerBase
 
 	// Get Todo items
 	[HttpGet]
-	public IEnumerable<TodoItem> Get()
+	public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems([FromQuery] string? search)
 	{
-		return _context.TodoItems;
+		var query = _context.TodoItems.AsQueryable();
+
+		if (!string.IsNullOrWhiteSpace(search))
+		{
+			query = query.Where(t => t.Title.ToLower().Contains(search.ToLower()) || t.Description.ToLower().Contains(search.ToLower()));
+		}
+
+		return await query.ToListAsync();
 	}
 
 	// Get Todo items by ID
