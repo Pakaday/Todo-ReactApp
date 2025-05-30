@@ -193,17 +193,14 @@ function App() {
         return (
             <div className="App">
                 <h1>Todo List</h1>
+                <label>
                 <input
                     type="text"
                     placeholder="Search..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                {/*<ul>*/}
-                {/*    {filteredData.map((todo) => (*/}
-                {/*        <li key={todo.id}>{todo.title}</li>*/}
-                {/*    ))}*/}
-                {/*</ul>*/}
+                </label>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Enter a task
