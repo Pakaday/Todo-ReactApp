@@ -19,11 +19,25 @@ namespace TodoApi.Controllers
 
 		// Register user
 		[HttpPost("register")]
-		public async Task<IActionResult> Register(User user)
+		public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
 		{
+			if (await _context.Users.AnyAsync(u => u.Username == registerDTO.Username))
+			{
+				return BadRequest("Username already exists");
+			}
+
+			string passwordHash = BCrypt.Net.BCrypt.HashPassword(registerDTO.Password);
+
+			var user = new User
+			{
+				Username = registerDTO.Username,
+				PasswordHash = passwordHash
+			};
+
 			_context.Users.Add(user);
 			await _context.SaveChangesAsync();
-			return Ok(user);
+
+			return Ok(new {user.Id,  user.Username});
 		}
 
 		// User login
@@ -36,8 +50,7 @@ namespace TodoApi.Controllers
 				return Unauthorized("Invalid username or password");
 			}
 
-			// For testing REMOVE 
-			if (user.PasswordHash != loginDTO.Password)
+			if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.PasswordHash))
 			{
 				return Unauthorized("Invalid username or password");
 			}
