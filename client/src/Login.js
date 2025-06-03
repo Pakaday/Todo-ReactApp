@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Login() {
+function Login({ setUser }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -20,12 +20,12 @@ function Login() {
             });
 
             if (!response.ok) {
-                throw new error('Login failed');
+                throw new Error('Login failed');
             }
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            navigate('/todos');
+            navigate('/TodoItems');
         } catch (err) {
             setError('Invalid username or password');
         }
@@ -53,6 +53,16 @@ function Login() {
                     type="submit"
                 >
                     Login
+                </button>
+                <button
+                    type="button"
+                    placeholder="Guest"
+                onClick={() => {
+                    localStorage.setItem('token', 'guest');
+                    setUser('guest');
+                    navigate('/TodoItems');
+                    }} >
+                    Continue as Guest
                 </button>
             </form>
         </div>

@@ -1,18 +1,20 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Login';
 import TodoList from './TodoList';
-import './App';
+import './App.css';
 
 function App() {
     const token = localStorage.getItem('token');
+    const [user, setUser] = useState(null); // Guest if null
 
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login setUser={setUser} />} />
                 <Route
-                    path="/todos"
-                    element={token ? <TodoList /> : <Navigate to="/login" />}
+                    path="/TodoItems"
+                    element={user ? <TodoList user={user} /> : <Navigate to="/login" />}
                 />
                 <Route path="*" element={<Navigate to="/login" />} />
             </Routes>

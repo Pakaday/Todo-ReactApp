@@ -1,11 +1,22 @@
 ﻿import { useState, useEffect } from 'react';
 import './App.css';
 
-function TodoList() {
+function TodoList({ user }) {
     const [todos, setTodos] = useState([]);
+
+    // Load todo list based on user
+    useEffect(() => {
+        const savedTodos = JSON.parse(localStorage.getItem(user || 'guest')) || [];
+        setTodos(savedTodos);
+    }, [user]);
+
+    useEffect(() => {
+        localStorage.setItem(user || 'guest', JSON.stringify(todos));
+    }, [todos, user]);
 
     // Fetch todo list when page loads
     useEffect(() => {
+        if (user === 'guest') return; // Skip backend if guest
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems`)
             .then(response => response.json())
             .then(data => {
@@ -13,6 +24,7 @@ function TodoList() {
                 setTodos(data);
             })
             .catch(error => {
+                console.error('Fetch error:', error);
                 alert('Error fetching from database:', error);
             });
     }, []);
