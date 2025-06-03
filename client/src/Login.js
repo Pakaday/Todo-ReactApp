@@ -26,8 +26,30 @@ function Login({ setUser }) {
             const data = await response.json();
             localStorage.setItem('token', data.token);
             navigate('/TodoItems');
-        } catch (err) {
+        } catch (error) {
             setError('Invalid username or password');
+        }
+    };
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Users/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to register new user');
+            }
+
+            const user = await response.json();
+            console.log('Registered user:', user);
+        } catch (error) {
+            console.error('Registration error:', error);
         }
     };
 
@@ -50,17 +72,23 @@ function Login({ setUser }) {
                     required
                 />
                 <button
-                    type="submit"
-                >
+                    type="submit">
                     Login
                 </button>
                 <button
                     type="button"
+                    placeholder="Register"
+                    onClick={handleRegister}
+                >
+                    Register New User
+                </button>
+                <button
+                    type="button"
                     placeholder="Guest"
-                onClick={() => {
-                    localStorage.setItem('token', 'guest');
-                    setUser('guest');
-                    navigate('/TodoItems');
+                    onClick={() => {
+                        localStorage.setItem('token', 'guest');
+                        setUser('guest');
+                        navigate('/TodoItems');
                     }} >
                     Continue as Guest
                 </button>
