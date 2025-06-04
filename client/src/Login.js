@@ -25,6 +25,7 @@ function Login({ setUser }) {
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
+            setUser(data.token);
             navigate('/TodoItems');
         } catch (error) {
             setError('Invalid username or password');
