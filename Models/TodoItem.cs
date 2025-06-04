@@ -31,4 +31,10 @@ public class TodoItem
 		get;
 		set;
 	}
+
+	public string UserId 
+	{ 
+		get; 
+		set; 
+	}
 }
