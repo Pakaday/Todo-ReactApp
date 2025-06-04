@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Data;
@@ -6,6 +7,7 @@ using TodoApi.Models;
 
 namespace TodoApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TodoItemsController : ControllerBase
@@ -22,7 +24,8 @@ public class TodoItemsController : ControllerBase
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems([FromQuery] string? search)
 	{
-		var query = _context.TodoItems.AsQueryable();
+		var userId = User.Identity.Name;
+		var query = _context.TodoItems.Where(t => t.UserId == userId);
 
 		if (!string.IsNullOrWhiteSpace(search))
 		{
@@ -50,9 +53,9 @@ public class TodoItemsController : ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> PostTodoItem(TodoItem todoItem)
 	{
+		todoItem.UserId = User.Identity.Name;
 		_context.TodoItems.Add(todoItem);
 		await _context.SaveChangesAsync();
-
 		return CreatedAtAction(nameof(Get), new { id = todoItem.Id }, todoItem);
 	}
 

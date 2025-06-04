@@ -355,3 +355,4 @@ C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\asse
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\manifest.json
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

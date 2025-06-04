@@ -17,7 +17,13 @@ function TodoList({ user }) {
     // Fetch todo list when page loads
     useEffect(() => {
         if (user === 'guest') return; // Skip backend if guest
-        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`)
+        fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+        })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -113,7 +119,8 @@ function TodoList({ user }) {
             fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(updateTodo)
             })
@@ -135,7 +142,8 @@ function TodoList({ user }) {
 
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(newTodo)
             })
@@ -164,7 +172,11 @@ function TodoList({ user }) {
 
         fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
 
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(response => {
                 if (response.ok) {
