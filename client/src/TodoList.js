@@ -118,6 +118,13 @@ function TodoList({ user }) {
             dueDate
 
         }
+
+        if (user === 'guest') {
+            const newTodo = { title, description, isCompleted, dueDate };
+            setTodos(prev => [...prev, newTodo]);
+            resetForm();
+            return;
+        }
         // Update method for PUT/POST 
         if (isEditing) {
             fetch(`${process.env.REACT_APP_API_URL}/TodoItems/${id}`, {
@@ -278,7 +285,7 @@ function TodoList({ user }) {
             </form>
             <div className="task-list">
                 {listToShow.map(todo => (
-                    <div className="task-card" key={todo.id}>
+                    <div className="task-card" key={todo.id || `${todo.title}-${todo.dueDate}`}>
                         <div>
                             <strong>{todo.title}</strong>
                             {todo.description && <p>{todo.description}</p>}
