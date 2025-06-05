@@ -4,6 +4,12 @@ import './App.css';
 function TodoList({ user }) {
     const [todos, setTodos] = useState([]);
 
+    const formatDate = (isoDateStr) => {
+        const [datePart] = isoDateStr.split('T');
+        const [year, month, day] = datePart.split('-');
+        return `${month}/${day}/${year}`;
+    };
+
     // Load todo list based on user
     useEffect(() => {
         if (user === 'guest') {
@@ -120,8 +126,23 @@ function TodoList({ user }) {
         }
 
         if (user === 'guest') {
-            const newTodo = { title, description, isCompleted, dueDate };
-            setTodos(prev => [...prev, newTodo]);
+            if (isEditing) {
+                const updatedTodos = todos.map(todo =>
+                    todo.id === id ? { id, title, description, isCompleted, dueDate } : todo
+                );
+                setTodos(updatedTodos);
+            } else {
+                const guestId = Date.now();
+                const newGuestTodo = {
+                    id: guestId,
+                    title,
+                    description,
+                    isCompleted,
+                    dueDate
+                };
+                setTodos(prev => [...prev, newGuestTodo]);
+            }
+
             resetForm();
             return;
         }
@@ -294,7 +315,7 @@ function TodoList({ user }) {
                         <div>
                             <strong>{todo.title}</strong>
                             {todo.description && <p>{todo.description}</p>}
-                            <p>{todo.isCompleted ? 'Completed' : 'Pending'} - {new Date(todo.dueDate).toLocaleDateString()}</p>
+                            <p>{todo.isCompleted ? 'Completed' : 'Pending'} - {formatDate(todo.dueDate)}</p>
                         </div>
                         <div className="task-actions">
                             <button onClick={() =>
