@@ -178,6 +178,11 @@ function TodoList({ user }) {
 
     // Delete handler
     const handleDelete = (id) => {
+        if (user === 'guest') {
+            setTodos(prev => prev.filter(todo => todo.id !== id && todo.title !== id));
+            return;
+        }
+
         console.log('Deleting ID:', id); // REMOVE
         setDeletingId(id);
 
@@ -301,7 +306,7 @@ function TodoList({ user }) {
                                 setTitle(todo.title);
                                 setDescription(todo.description);
                                 setIsCompleted(todo.isCompleted);
-                                setDueDate(todo.dueDate.split('T')[0]);
+                                setDueDate(todo.dueDate ? todo.dueDate.split('T')[0] : '');
                                 setIsEditing(true);
                                 setId(todo.id);
                                 setTitleError('');
