@@ -81,7 +81,7 @@
         "IsRequired": true
       },
       {
-        "Name": "todoItem",
+        "Name": "updatedItem",
         "Type": "TodoApi.Models.TodoItem",
         "IsRequired": true
       }

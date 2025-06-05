@@ -6,12 +6,16 @@ function TodoList({ user }) {
 
     // Load todo list based on user
     useEffect(() => {
-        const savedTodos = JSON.parse(localStorage.getItem(user || 'guest')) || [];
-        setTodos(savedTodos);
+        if (user === 'guest') {
+            const savedTodos = JSON.parse(localStorage.getItem('guest')) || [];
+            setTodos(savedTodos);
+        }
     }, [user]);
 
     useEffect(() => {
-        localStorage.setItem(user || 'guest', JSON.stringify(todos));
+        if (user === 'guest') {
+            localStorage.setItem('guest', JSON.stringify(todos));
+        }
     }, [todos, user]);
 
     // Fetch todo list when page loads

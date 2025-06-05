@@ -37,9 +37,10 @@ public class TodoItemsController : ControllerBase
 
 	// Get Todo items by ID
 	[HttpGet("{id}")]
-	public ActionResult<TodoItem> Get(long id)
+	public async Task<ActionResult<TodoItem>> Get(long id)
 	{
-		var todoItem = _context.TodoItems.Find(id);
+		var userId = User.Identity.Name;
+		var todoItem = await _context.TodoItems.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
 		if (todoItem == null)
 		{
@@ -61,25 +62,38 @@ public class TodoItemsController : ControllerBase
 
 	// Update an existing Todo item
 	[HttpPut("{id}")]
-	public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
+	public async Task<IActionResult> PutTodoItem(long id, TodoItem updatedItem)
 	{
-		if (id != todoItem.Id)
+		if (id != updatedItem.Id)
 		{
 			return BadRequest();
 		}
 
-		_context.Entry(todoItem).State = EntityState.Modified;
+		var userId = User.Identity.Name;
+		var existingItem = await _context.TodoItems.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+		//_context.Entry(todoItem).State = EntityState.Modified;
+		if (existingItem == null)
+		{
+			return NotFound();
+		}
+
+		existingItem.Title = updatedItem.Title;
+		existingItem.Description = updatedItem.Description;
+		existingItem.IsCompleted = updatedItem.IsCompleted;
+		existingItem.DueDate = updatedItem.DueDate;
 
 		// Save changes to database
 		await _context.SaveChangesAsync();
-		return Ok(todoItem);
+		return Ok(existingItem);
 	}
 
 	// Delete a Todo item
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> DeleteTodoItem(long id)
 	{
-		var todoItem = await _context.TodoItems.FindAsync(id);
+		var userId = User.Identity.Name;
+		var todoItem = await _context.TodoItems.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+
 		if (todoItem == null)
 		{
 			return NotFound();
