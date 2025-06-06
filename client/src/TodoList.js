@@ -256,10 +256,10 @@ function TodoList({ user }) {
             {user === 'guest' ? (
                 <button onClick={() => window.location.href = '/'}>Go Back</button>
             ) : (
-                    <button onClick={() => {
-                        localStorage.removeItem('token');
-                        window.location.href = '/';
-                    } }>Logout</button>
+                <button onClick={() => {
+                    localStorage.removeItem('token');
+                    window.location.href = '/';
+                }}>Logout</button>
             )}
             <h1>Todo List</h1>
             <form onSubmit={handleSubmit}>
@@ -285,15 +285,6 @@ function TodoList({ user }) {
                 </label>
                 <br />
                 <label>
-                    Is Complete?
-                    <input
-                        type="checkbox"
-                        checked={isCompleted}
-                        onChange={(e) => setIsCompleted(e.target.checked)}
-                    />
-                </label>
-                <br />
-                <label>
                     Due Date
                     <br />
                     <input
@@ -304,6 +295,17 @@ function TodoList({ user }) {
                     />
                     {dueDateError && <p className="error-message">{dueDateError}</p>}
                 </label>
+                <br />
+                {isEditing && (
+                    <label>
+                        Task Complete?
+                        <input
+                            type="checkbox"
+                            checked={isCompleted}
+                            onChange={(e) => setIsCompleted(e.target.checked)}
+                        />
+                    </label>
+                )}
                 <br />
                 <button type="submit" disabled={isSubmit}>
                     {isSubmit ? 'Submitting...' : 'Submit'}
@@ -336,10 +338,10 @@ function TodoList({ user }) {
                                 setTitle(todo.title);
                                 setDescription(todo.description);
                                 setIsCompleted(todo.isCompleted);
-                                //setDueDate(todo.dueDate ? todo.dueDate.split('T')[0] : '');
-                                setDueDate(typeof todo.dueDate == 'string' && todo.dueDate.includes('T')
-                                    ? todo.dueDate.split('T')[0]
-                                    : todo.dueDate || ''
+                                setDueDate(
+                                    todo.dueDate
+                                        ? new Date(todo.dueDate).toISOString().split('T')[0]
+                                        : ''
                                 );
                                 setIsEditing(true);
                                 setId(todo.id);
