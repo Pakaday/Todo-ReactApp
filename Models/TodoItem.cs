@@ -1,4 +1,6 @@
-﻿namespace TodoApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TodoApi.Models;
 
 public class TodoItem
 {
@@ -8,6 +10,7 @@ public class TodoItem
 		set;
 	}
 
+	[Required]
 	public string Title
 	{
 		get;
@@ -26,13 +29,14 @@ public class TodoItem
 		set;
 	}
 
+	[Required]
 	public DateTime DueDate
 	{
 		get;
 		set;
 	}
 
-	public string UserId 
+	public string? UserId 
 	{ 
 		get; 
 		set; 

@@ -5,6 +5,9 @@ function TodoList({ user }) {
     const [todos, setTodos] = useState([]);
 
     const formatDate = (isoDateStr) => {
+        if (!isoDateStr || typeof isoDateStr !== 'string' || !isoDateStr.includes('T')) {
+            return 'No due date';
+        }
         const [datePart] = isoDateStr.split('T');
         const [year, month, day] = datePart.split('-');
         return `${month}/${day}/${year}`;
@@ -61,9 +64,6 @@ function TodoList({ user }) {
 
     // Search bar
     const [query, setQuery] = useState('');
-    //const filteredData = todos.filter((todo) =>
-    //    todo.title.toLowerCase().includes(query.toLowerCase())
-    //);
     const listToShow = query
         ? todos.filter(t => t.title.toLowerCase().includes(query.toLowerCase()) ||
             t.description.toLowerCase().includes(query.toLowerCase()))
@@ -113,7 +113,7 @@ function TodoList({ user }) {
             title,
             description,
             isCompleted,
-            dueDate
+            dueDate: new Date(dueDate).toISOString()
         };
 
         const updateTodo = {
@@ -121,9 +121,8 @@ function TodoList({ user }) {
             title,
             description,
             isCompleted,
-            dueDate
-
-        }
+            dueDate: new Date(dueDate).toISOString()
+        };
 
         if (user === 'guest') {
             if (isEditing) {
@@ -169,7 +168,7 @@ function TodoList({ user }) {
                 });
 
         } else {
-
+            console.log('Submitting newTodo:', newTodo); // Debug
             fetch(`${process.env.REACT_APP_API_URL}/TodoItems`, {
 
                 method: 'POST',
@@ -327,7 +326,11 @@ function TodoList({ user }) {
                                 setTitle(todo.title);
                                 setDescription(todo.description);
                                 setIsCompleted(todo.isCompleted);
-                                setDueDate(todo.dueDate ? todo.dueDate.split('T')[0] : '');
+                                //setDueDate(todo.dueDate ? todo.dueDate.split('T')[0] : '');
+                                setDueDate(typeof todo.dueDate == 'string' && todo.dueDate.includes('T')
+                                    ? todo.dueDate.split('T')[0]
+                                    : todo.dueDate || ''
+                                );
                                 setIsEditing(true);
                                 setId(todo.id);
                                 setTitleError('');

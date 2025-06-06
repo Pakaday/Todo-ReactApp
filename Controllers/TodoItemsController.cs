@@ -54,6 +54,18 @@ public class TodoItemsController : ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> PostTodoItem(TodoItem todoItem)
 	{
+		if (!ModelState.IsValid)
+		{
+			foreach (var kvp in ModelState)
+			{
+				foreach (var error in kvp.Value.Errors)
+				{
+					Console.WriteLine($"{kvp.Key}: {error.ErrorMessage}");
+				}
+			}
+
+			return BadRequest(ModelState);
+		}
 		todoItem.UserId = User.Identity.Name;
 		_context.TodoItems.Add(todoItem);
 		await _context.SaveChangesAsync();

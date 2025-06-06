@@ -314,6 +314,10 @@
         "additionalProperties": false
       },
       "TodoItem": {
+        "required": [
+          "dueDate",
+          "title"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -321,8 +325,8 @@
             "format": "int64"
           },
           "title": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "description": {
             "type": "string",

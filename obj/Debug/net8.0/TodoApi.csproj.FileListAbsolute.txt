@@ -178,6 +178,8 @@ C:\Users\fneimeister\source\repos\TodoApi\bin\Debug\net8.0\client\public\manifes
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\Web.config
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\appsettings.json
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\asset-manifest.json
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\manifest.json
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\package-lock.json
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\package.json
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\public\manifest.json
@@ -189,7 +191,9 @@ C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\TodoApi.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\TodoApi.pdb
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Humanizer.dll
+C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -351,8 +355,4 @@ C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\refint\TodoApi.dl
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.pdb
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\TodoApi.genruntimeconfig.cache
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\ref\TodoApi.dll
-C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\asset-manifest.json
-C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\client\build\manifest.json
-C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\BCrypt.Net-Next.dll
-C:\Users\fneimeister\VisualStudio2022\TodoApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\fneimeister\VisualStudio2022\TodoApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
