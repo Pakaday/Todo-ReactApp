@@ -252,16 +252,16 @@ function TodoList({ user }) {
     }
 
     return (
-        <div className="App">
+        <div className="App nav-buttons">
+            {user === 'guest' ? (
+                <button onClick={() => window.location.href = '/'}>Go Back</button>
+            ) : (
+                    <button onClick={() => {
+                        localStorage.removeItem('token');
+                        window.location.href = '/';
+                    } }>Logout</button>
+            )}
             <h1>Todo List</h1>
-            <label>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-            </label>
             <form onSubmit={handleSubmit}>
                 <label>
                     Enter a task
@@ -309,6 +309,15 @@ function TodoList({ user }) {
                     {isSubmit ? 'Submitting...' : 'Submit'}
                 </button>
             </form>
+            <br />
+            <label>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+            </label>
             <div className="task-list">
                 {listToShow.map(todo => (
                     <div className="task-card" key={todo.id || `${todo.title}-${todo.dueDate}`}>

@@ -31,7 +31,8 @@ function Register() {
     };
 
     return (
-        <div className="App">
+        <div className="App nav-buttons">
+            <button onClick={() => window.location.href = '/'}>Go Back</button>
             <form onSubmit={handleSubmit}>
                 <h2>Register</h2>
                 <input
