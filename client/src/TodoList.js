@@ -16,8 +16,8 @@ function TodoList({ user }) {
     // Load todo list based on user
     useEffect(() => {
         if (user === 'guest') {
-            const savedTodos = JSON.parse(localStorage.getItem('guest')) || [];
-            setTodos(savedTodos);
+            const guestTodos = JSON.parse(localStorage.getItem('guest')) || [];
+            setTodos(guestTodos);
         }
     }, [user]);
 
@@ -137,8 +137,9 @@ function TodoList({ user }) {
                     title,
                     description,
                     isCompleted,
-                    dueDate
+                    dueDate: new Date(dueDate).toISOString()
                 };
+                console.log('Creating guest todo:', newGuestTodo);
                 setTodos(prev => [...prev, newGuestTodo]);
             }
 
