@@ -13,6 +13,15 @@ function TodoList({ user }) {
         return `${month}/${day}/${year}`;
     };
 
+    //const getInputDateValue = (dateStr) => {
+    //    if (!dateStr) return '';
+    //    const date = new Date(dateStr);
+    //    if (isNaN(date.getTime())) return '';
+    //    const offset = date.getTimezoneOffset();
+    //    const localDate = new Date(date.getTime() - offset * 60 * 1000);
+    //    return localDate.toISOString().split('T')[0];
+    //};
+
     // Load todo list based on user
     useEffect(() => {
         if (user === 'guest') {
@@ -127,7 +136,13 @@ function TodoList({ user }) {
         if (user === 'guest') {
             if (isEditing) {
                 const updatedTodos = todos.map(todo =>
-                    todo.id === id ? { id, title, description, isCompleted, dueDate } : todo
+                    todo.id === id ? {
+                        id,
+                        title,
+                        description,
+                        isCompleted,
+                        dueDate: new Date(dueDate).toISOString()
+                    } : todo
                 );
                 setTodos(updatedTodos);
             } else {
@@ -338,11 +353,8 @@ function TodoList({ user }) {
                                 setTitle(todo.title);
                                 setDescription(todo.description);
                                 setIsCompleted(todo.isCompleted);
-                                setDueDate(
-                                    todo.dueDate
-                                        ? new Date(todo.dueDate).toISOString().split('T')[0]
-                                        : ''
-                                );
+                                //setDueDate(getInputDateValue(todo.dueDate));
+                                setDueDate(todo.dueDate?.split('T')[0] || '');
                                 setIsEditing(true);
                                 setId(todo.id);
                                 setTitleError('');
