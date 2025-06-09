@@ -244,7 +244,7 @@ function TodoList({ user }) {
         } else {
             setTitleError('');
         }
-    }
+    };
     // Due date validation
     const handleDateChange = (e) => {
         const value = e.target.value;
@@ -255,7 +255,41 @@ function TodoList({ user }) {
         } else {
             setDueDateError('');
         }
-    }
+    };
+
+    const exportCSV = (tasks) => {
+        if (!tasks.length) {
+            alert('No tasks to export.');
+            return;
+        }
+
+        const headers = ['Title', 'Description', 'Due Date', 'Status'];
+        const rows = tasks.map(todo => [
+            todo.title,
+            todo.description || '',
+            formatDate(todo.dueDate),
+            todo.isCompleted ? 'Completed' : 'Pending'
+        ]);
+
+        const csvContent = [
+            headers.join(','),
+            ...rows.map(row =>
+                row.map(field => `"${field.replace(/"/g, '""')}"`).join(',')
+            )
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `Task_Report_${timestamp}.csv`;
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <div className="App nav-buttons">
@@ -326,6 +360,8 @@ function TodoList({ user }) {
                     onChange={(e) => setQuery(e.target.value)}
                 />
             </label>
+            <br />
+            <button onClick={() => exportCSV(listToShow)}>Export to CSV</button>
             <div className="task-list">
                 {listToShow.map(todo => (
                     <div className="task-card" key={todo.id || `${todo.title}-${todo.dueDate}`}>
