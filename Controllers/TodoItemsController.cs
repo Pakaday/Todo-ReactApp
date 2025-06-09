@@ -10,7 +10,7 @@ namespace TodoApi.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class TodoItemsController : ControllerBase
+public class TodoItemsController : BaseController
 {
 	// Inject TodoDbContext into controller
 	private readonly TodoDbContext _context;
