@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './App.css';
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -31,19 +32,20 @@ function Register() {
     };
 
     return (
-        <div className="App nav-buttons">
+        <div className="App">
             <button onClick={() => window.location.href = '/'}>Go Back</button>
             <form onSubmit={handleSubmit}>
-                <h2>Register</h2>
+                <h1>Register</h1>
                 <input
+                type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
                 <input
+                    type="text"
                     placeholder="Password"
-                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
