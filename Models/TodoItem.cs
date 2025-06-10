@@ -17,7 +17,7 @@ public class TodoItem
 		set;
 	}
 
-	public string Description
+	public string? Description
 	{
 		get;
 		set;
