@@ -5,12 +5,14 @@ import './App.css';
 function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/Users/register`, {
@@ -28,6 +30,8 @@ function Register() {
             navigate('/login');
         } catch (error) {
             setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -51,7 +55,10 @@ function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Register</button>
+                <button type="submit"
+                    disabled={loading}>
+                    {loading ? 'Registering user...' : 'Register New User'}
+                    </button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
             </form>
         </div>

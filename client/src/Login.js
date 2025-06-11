@@ -5,12 +5,14 @@ import './App.css';
 function Login({ setUser }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/Users/login`, {
@@ -20,15 +22,21 @@ function Login({ setUser }) {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                if (response.status === 401 || response.status === 400) {
+                    throw new Error('Invalid username or password');
+                } else {
+                    throw new Error('Server error. Please try again later.');
+                }
             }
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
             setUser(data.token);
             navigate('/TodoItems');
-        } catch (error) {
-            setError('Invalid username or password');
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -50,9 +58,12 @@ function Login({ setUser }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
+
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button
-                    type="submit">
-                    Login
+                    type="submit"
+                    disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login' }
                 </button>
                 <button
                     type="button"
