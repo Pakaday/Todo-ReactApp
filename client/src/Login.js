@@ -34,7 +34,7 @@ function Login({ setUser }) {
 
     return (
         <div className="App">
-            <h1>Login</h1>
+            <h1>SmartTask</h1>
             <form onSubmit={handleLogin}>
                 <input
                     type="text"
