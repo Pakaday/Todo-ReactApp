@@ -21,18 +21,49 @@ public class TodoItemsController : BaseController
 	}
 
 	// Get Todo items
+	//[HttpGet]
+	//public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems([FromQuery] string? search)
+	//{
+	//	var userId = User.Identity?.Name;
+	//	var query = _context.TodoItems.Where(t => t.UserId == userId);
+
+	//	if (!string.IsNullOrWhiteSpace(search))
+	//	{
+	//		query = query.Where(t => t.Title.ToLower().Contains(search.ToLower()) || t.Description.ToLower().Contains(search.ToLower()));
+	//	}
+
+	//	return await query.ToListAsync();
+	//}
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems([FromQuery] string? search)
 	{
-		var userId = User.Identity.Name;
-		var query = _context.TodoItems.Where(t => t.UserId == userId);
-
-		if (!string.IsNullOrWhiteSpace(search))
+		try
 		{
-			query = query.Where(t => t.Title.ToLower().Contains(search.ToLower()) || t.Description.ToLower().Contains(search.ToLower()));
-		}
+			var userId = User.Identity?.Name;
+			Console.WriteLine($"[DEBUG] userId: {userId}");
 
-		return await query.ToListAsync();
+			if (string.IsNullOrEmpty(userId))
+			{
+				return Problem("User.Identity.Name is null. Authentication may not be configured correctly.");
+			}
+
+			var query = _context.TodoItems.Where(t => t.UserId == userId);
+
+			if (!string.IsNullOrWhiteSpace(search))
+			{
+				query = query.Where(t => t.Title.ToLower().Contains(search.ToLower()) || t.Description.ToLower().Contains(search.ToLower()));
+			}
+
+			var results = await query.ToListAsync();
+			Console.WriteLine($"[DEBUG] {results.Count} todo items returned for user {userId}");
+
+			return results;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"[ERROR] Exception in GetTodoItems: {ex.Message}");
+			return StatusCode(500, "Internal server error");
+		}
 	}
 
 	// Get Todo items by ID
