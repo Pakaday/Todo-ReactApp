@@ -301,7 +301,7 @@ function TodoList({ user }) {
                     window.location.href = '/';
                 }}>Logout</button>
             )}
-            <h1>Todo List</h1>
+            <h1>SmartTask</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Enter a task

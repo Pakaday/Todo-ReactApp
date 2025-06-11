@@ -35,7 +35,8 @@ function Register() {
         <div className="App">
             <button onClick={() => window.location.href = '/'}>Go Back</button>
             <form onSubmit={handleSubmit}>
-                <h1>Register</h1>
+            <h1>SmartTask</h1>
+                <h2>User Registration</h2>
                 <input
                 type="text"
                     placeholder="Username"
@@ -44,7 +45,7 @@ function Register() {
                     required
                 />
                 <input
-                    type="text"
+                    type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
