@@ -2,7 +2,7 @@
 
 SmartTask is a full-featured task management web application built using a **React** frontend and **ASP.NET Core** backend. It supports personal productivity by allowing users to create, manage, and organize their tasks efficiently and securely.
 
-## 🚀 Features
+## Features
 
 - User registration and login with secure authentication (JWT)
 - Add, edit, and delete tasks with:
@@ -12,7 +12,7 @@ SmartTask is a full-featured task management web application built using a **Rea
 - Responsive and user-friendly interface
 - Each user has their own unique task list
 
-## 🔧 Technologies Used
+## Technologies Used
 
 ### Frontend
 - React (Vite)
@@ -28,7 +28,7 @@ SmartTask is a full-featured task management web application built using a **Rea
 - xUnit
 - EF Core InMemory provider for isolated unit tests
 
-## 🗃️ Project Structure
+## Project Structure
 
 ```
 SmartTask/
@@ -43,7 +43,7 @@ SmartTask/
 ├── TodoApi.Tests/            # Unit test project (xUnit)
 ```
 
-## 🛠️ Setup Instructions
+##  Setup Instructions
 
 ### Backend
 1. Navigate to `TodoApi` folder
@@ -55,17 +55,17 @@ SmartTask/
 2. Install dependencies: `npm install`
 3. Run the app: `npm run dev`
 
-## 🧪 Running Tests
+## Running Tests
 
 1. Navigate to `TodoApi.Tests` folder
 2. Run tests: `dotnet test`
 
-## 📁 Environment Configuration
+## Environment Configuration
 
 - `appsettings.Development.json` – for development DB connection
 - `.env` – for frontend API base URL
 
-## ✍️ Author
+##  Author
 
 Frederick Neimeister
 
